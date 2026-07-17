@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AccessMap — 무장애 경로 지도 | 정민아</title>
+<meta name="description" content="이동약자·여행객을 위한 다국어 무장애 경로 지도 AccessMap의 UI/UX 케이스 스터디">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AccessMap — 무장애 경로 지도 | 정민아">
+<meta property="og:description" content="이동약자·여행객을 위한 다국어 무장애 경로 지도 AccessMap의 UI/UX 케이스 스터디">
+<!-- TODO: 배포 후 실제 주소로 교체 -->
+<!-- <meta property="og:url" content=""> -->
+<meta property="og:image" content="assets/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AccessMap — 무장애 경로 지도 | 정민아">
+<meta name="twitter:description" content="이동약자·여행객을 위한 다국어 무장애 경로 지도 AccessMap의 UI/UX 케이스 스터디">
+<!-- TODO: 배포 후 canonical URL 지정 -->
+<!-- <link rel="canonical" href=""> -->
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">본문으로 바로가기</a>
+
+<nav class="nav">
+  <div class="container">
+    <a class="nav-logo" href="index.html">정민아 · Portfolio</a>
+    <ul class="nav-links">
+      <li><a href="index.html#projects">프로젝트</a></li>
+      <li><a href="index.html#about">소개</a></li>
+      <li><a href="index.html#contact">연락처</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header class="case-hero">
+  <div class="container">
+    <div class="hero-eyebrow">CASE STUDY 02 · 모바일 앱 · 접근성</div>
+    <h1>AccessMap</h1>
+    <p class="lede">휠체어도, 여행객도 안심하고 갈 수 있는 길</p>
+
+    <dl class="case-meta-grid">
+      <div><dt>역할</dt><dd>1인 기획·리서치·UI 디자인</dd></div>
+      <div><dt>기간</dt><dd>개인 프로젝트 · 약 4주</dd></div>
+      <div><dt>도구</dt><dd>Figma, HTML/CSS 목업</dd></div>
+      <div><dt>유형</dt><dd>실무 아님 · 개인 연습 프로젝트</dd></div>
+    </dl>
+
+    <div class="disclosure">
+      <strong>정직 고지.</strong> 당사자(이동약자) 심층 인터뷰를 진행하지 못한 개인 프로젝트로,
+      공공데이터와 공개된 후기를 기반으로 문제를 재구성했습니다. 실제 서비스화 이전에는
+      당사자 검증이 반드시 선행되어야 합니다.
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<section>
+  <div class="container prose">
+    <div class="section-label">01 · PROBLEM</div>
+    <h2>지도는 있지만, "갈 수 있는 길"은 알려주지 않는다</h2>
+    <p>
+      기존 지도 서비스는 최단 경로는 알려주지만, 그 경로에 경사로가 있는지, 단차가 있는지,
+      무장애 화장실이 어디에 있는지는 알려주지 않습니다. 이 정보 공백은 휠체어 이용자만의
+      문제가 아닙니다. 노약자를 동반한 여행객, 큰 캐리어를 든 외국인 관광객도 동일한 어려움을
+      겪습니다.
+    </p>
+    <p>
+      그래서 타겟을 "장애인"으로 좁히지 않고 <strong>"이동에 제약이 있는 모든 사람"</strong>으로
+      넓게 정의했습니다 — 이는 실제 서비스 확장성과 시장성 측면에서도 유리한 선택이라 판단했습니다.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="container prose">
+    <div class="section-label">02 · RESEARCH</div>
+    <h2>리서치 방법과 한계</h2>
+    <ul>
+      <li><strong>공공데이터 분석</strong> — 지자체가 공개한 장애인 편의시설 데이터 구조를 검토</li>
+      <li><strong>공개 후기 정성 분석</strong> — 이동약자 당사자가 남긴 블로그·커뮤니티 후기 확인</li>
+    </ul>
+    <p>
+      당사자 심층 인터뷰를 대체할 수 있는 방법은 없다는 점을 인지하고 있습니다. 이 프로젝트의
+      가장 큰 한계로 명시합니다.
+    </p>
+    <p>
+      공개 후기 텍스트 양이 많아, 반복적으로 언급되는 키워드(경사로, 단차, 화장실 위치 등)를
+      생성형 AI로 1차 추출했습니다. 다만 추출된 키워드마다 원문을 직접 다시 확인해
+      맥락이 왜곡되지 않았는지 대조했습니다.
+    </p>
+
+    <h3>페르소나 (2개)</h3>
+    <div class="two-col">
+      <div class="figure">
+        <p style="margin:0"><strong>도현 (29) · 휠체어 이용 직장인</strong></p>
+        <p class="persona-desc">
+          출퇴근 경로는 익숙하지만, 새로운 장소를 갈 때마다 경사로 유무를 전화로 미리
+          확인해야 하는 번거로움이 있음.
+        </p>
+      </div>
+      <div class="figure">
+        <p style="margin:0"><strong>Sarah (45) · 노부모 동반 외국인 여행객</strong></p>
+        <p class="persona-desc">
+          언어 장벽으로 현지 접근성 정보를 찾기 어렵고, 아이콘만으로는 의미를 오해하는 경우가 있음.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label">03 · SOLUTION</div>
+    <h2>핵심 화면</h2>
+    <div class="mockup-row">
+      <div class="phone-frame">
+        <div class="screen">
+          <div class="status-bar"><span>9:41</span><span>●●●</span></div>
+          <div class="app-bar">AccessMap</div>
+          <div class="mock-map-block">
+            <div class="mock-pin" style="top:40px; left:60px;"></div>
+            <div class="mock-pin" style="top:90px; left:150px; background:#8a8a8a;"></div>
+          </div>
+          <div class="mock-list-item">
+            <span class="mock-icon-label" style="color:var(--color-accent);">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+              완만한 경사로 · Gentle ramp
+            </span>
+          </div>
+          <div class="mock-list-item">
+            <span class="mock-icon-label" style="color:var(--color-warning);">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg>
+              단차 있음 · Small step
+            </span>
+          </div>
+          <div class="mock-list-item">
+            <span class="mock-icon-label" style="color:var(--color-text-muted);">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="5" r="2"/><path d="M9 8v5l-3 6M9 13h6l3 6M9 13l4-2"/></svg>
+              무장애 화장실 · 120m
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="phone-frame">
+        <div class="screen">
+          <div class="status-bar"><span>9:41</span><span>●●●</span></div>
+          <div class="app-bar">정보 제보하기</div>
+          <span class="mock-badge muted">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            검수 대기 중 · 2시간 전 제보
+          </span>
+          <p style="font-size:14px; margin:6px 0;">제보 내용: "정문 옆 경사로 공사로 통행 불가"</p>
+          <span class="mock-badge muted" style="width:fit-content;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="14" rx="2"/><path d="M8 6l2-3h4l2 3"/><circle cx="12" cy="13" r="3.2"/></svg>
+            사진 1장 첨부됨
+          </span>
+          <div class="mock-bar-track"><div class="mock-bar-fill" style="width:30%"></div></div>
+          <p style="font-size:12px; color:var(--color-text-muted); margin:0;">제보 3건 이상 확인 시 반영됩니다</p>
+          <div class="mock-btn-secondary">언어 선택: 한국어 / EN / ไทย</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container prose">
+    <div class="section-label">04 · DESIGN DECISIONS</div>
+    <h2>왜 이렇게 결정했는가</h2>
+    <ul>
+      <li><strong>3중 부호화.</strong> 정보 구분을 색상 단독에 의존하지 않고 색상+아이콘+텍스트로
+        중복 표현해 색약자·저시력 사용자도 구분할 수 있도록 했습니다.</li>
+      <li><strong>아이콘 단독 의존 지양.</strong> 문화권마다 아이콘 해석이 다를 수 있어, 다국어
+        텍스트 라벨을 항상 병기했습니다.</li>
+      <li><strong>제보 상태의 시각화.</strong> "검수 대기 → 반영" 상태를 보여줘, 사용자가 자신의
+        제보가 무시되지 않았다는 신뢰를 갖도록 설계했습니다.</li>
+    </ul>
+
+    <h3>고려했지만 기각한 대안</h3>
+    <p>
+      각 장소의 접근성 정보를 개별 항목 대신 "접근성 점수"처럼 단일 수치로 요약해 보여주는
+      방안도 검토했습니다. 한눈에 파악하기 쉽다는 장점이 있었지만, 휠체어 이용자에게 중요한
+      "경사로 유무"와 저시력 사용자에게 중요한 "무장애 화장실 위치" 같은 서로 다른 필요를
+      하나의 점수로 뭉치면 정작 필요한 사람에게 필요한 정보가 묻힐 수 있다고 판단해
+      기각했습니다. 대신 항목별로 분리된 아이콘 리스트를 유지해, 사용자가 자신에게 중요한
+      정보만 선택적으로 확인할 수 있도록 했습니다.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-label">05 · RESULT</div>
+    <h2>결과 (정성적 + 실측 가능한 항목만 수치화)</h2>
+    <div class="result-grid">
+      <div class="result-card"><span class="num">AA</span><span class="label">주요 색상 조합 대비비 WCAG AA 기준 통과 (실측 도구로 검증)</span></div>
+      <div class="result-card"><span class="num">3중 부호화</span><span class="label">색상·아이콘·텍스트 병행 표기 적용</span></div>
+      <div class="result-card"><span class="num">피드백 반영</span><span class="label">"제보 상태 표시가 이해하기 쉬웠다"는 비공식 피드백</span></div>
+    </div>
+    <p class="prose" style="margin-top: var(--space-3); color:var(--color-text-muted); font-size: var(--step--1);">
+      대비비(WCAG AA)는 실제 계산 도구로 검증 가능한 값이라 수치로 기재했고, 그 외 항목은
+      과장 없이 정성적으로만 서술했습니다.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="container prose">
+    <div class="section-label">06 · RETROSPECTIVE</div>
+    <h2>회고</h2>
+    <p>
+      실제 크라우드소싱 데이터의 신뢰도 검증(악의적 제보 필터링 등) 로직은 목업 수준에
+      그쳤습니다. 또한 당사자 인터뷰 없이 진행한 만큼, 실제 서비스화 이전 당사자 검증
+      단계를 반드시 거쳐야 한다고 생각합니다.
+    </p>
+  </div>
+</section>
+
+<div class="container case-nav">
+  <a class="back" href="case-kongkong.html">← 이전: 콩콩</a>
+  <a href="case-store-ledger.html">다음: 가게장부 →</a>
+</div>
+</main>
+
+<footer>
+  <div class="container">
+    <span>© 2026 정민아</span>
+    <span>개인 연습 프로젝트로 구성된 포트폴리오입니다</span>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -87,8 +87,16 @@
    .mock-empty-state(아이콘+안내문구, 내부 svg는 aria-hidden 필수) /
    .mock-btn-tertiary(텍스트 버튼).
    ★모든 mock-* 프리미티브는 실제 인터랙션이 없는 정적 화면 목업(스크린샷
-   대역)이다 — 이를 감싸는 .phone-frame/.browser-frame 등 상위 컨테이너에
-   aria-hidden="true"를 적용하는 기존 컨벤션을 그대로 따를 것.
+   대역)이다. ★★2026-07 라운드7 검증 중 정정(이전 버전이 틀렸음): ".phone-frame/
+   .browser-frame에 aria-hidden을 붙이는 기존 컨벤션"은 실제로 존재하지 않는다
+   (4개 HTML 전수 grep 확인, worker-2가 발견). 실제 패턴은 이렇다 — ①케이스
+   스터디 SOLUTION 섹션의 .phone-frame/.browser-frame은 그 섹션의 주 정보
+   콘텐츠(토글 라벨·수치 등 실제로 읽어야 할 텍스트)이므로 aria-hidden 금지
+   ②index.html 히어로처럼 다른 곳에 이미 전체가 노출된 내용을 순수 장식/미리보기
+   용도로만 재사용하는 경우에만 그 바깥 래퍼(.hero-visual 등, .phone-frame
+   자체가 아님)에 aria-hidden="true"를 적용한다. 새 mock-* 화면을 만들 때 이
+   기준으로 판단할 것 — 무조건 aria-hidden을 붙이면 스크린리더 사용자가 그
+   섹션의 핵심 콘텐츠를 놓친다.
    ========================================================= */
 
 :root {
@@ -683,6 +691,9 @@ section + .section-flush { border-top: none; }
   border-radius: 50%;
   background: var(--color-bg);
 }
+/* .section-flush--dark 안에서는 도넛 중앙 구멍도 --color-bg(밝음) 대신 다크 배경을 써야
+   흰 원이 뜨는 부조화를 피할 수 있다 — worker-2가 case-store-ledger.html 적용 중 발견 */
+.section-flush--dark .chart-donut .ring::before { background: var(--color-statement-bg); }
 .chart-donut .ring .pct {
   position: relative;
   z-index: 1;

@@ -3,6 +3,19 @@
    원칙: 미니멀 + 타이포그래피 중심 (트렌디한 비주얼 트릭 지양)
    근거: 평가자가 프로젝트당 1분 미만만 훑어봄 → 화려함보다
    "빠르게 읽히고 신뢰가 가는" 레이아웃이 우선.
+
+   2026-07 추가 원칙 (시각 깊이 업그레이드, 오너 승인):
+   케이스별 액센트 컬러·풀블리드 섹션전환(.section-flush)·대형 스테이트먼트
+   타이포(.statement)·주석형 솔루션 레이아웃(.annotated-mockup)·Result 배지
+   (.result-badge)를 추가한다. 이 요소들은 장식이 아니라 "문제→해결→결과"
+   3단 구조를 한눈에 구분시키는 정보위계 신호로만 사용한다 — 장식적 전환 금지.
+   위 원칙(1분 미만 훑기 우선)과의 공존 조건: 색전환·대형타이포·배지는 스캔
+   속도를 높이는 용도일 때만 쓰고, 순수 미학적 장식이 목적이면 이 시스템에
+   추가하지 않는다.
+   ★.result-badge 사용 시 필수: qual-label에 반드시 "정성적 관찰" 등 정성적
+   라벨 텍스트를 명시할 것 — 숫자만 크게 보이면 정량지표로 오독될 위험이 있다
+   (이 포트폴리오는 개인 연습 프로젝트라 실측 정량 지표가 없음 — 가짜 지표
+   오해 방지가 최우선).
    ========================================================= */
 
 :root {
@@ -16,6 +29,22 @@
   --color-accent-soft: #e7efe9;
   --color-danger: #b0463c;      /* 경고(위험) 레드 — vs 배경 5.54:1 (AA 4.5:1 이상, 실측) */
   --color-warning: #8f7025;     /* 경고(주의) 앰버 — vs 배경 4.65:1 (AA 4.5:1 이상, 실측) */
+
+  /* Case 액센트 컬러 3세트 — 기존 accent(그린)·danger(레드브라운)·warning(앰버올리브)와
+     명확히 구분되는 hue로 선정(스와치 실측 대조 완료). 각 vs 배경(#ffffff) AA 4.5:1 이상 실측 */
+  --color-accent-kongkong: #c1451f;        /* 콩콩 — 코랄/버밀리언, vs 배경 5.07:1 (실측) */
+  --color-accent-kongkong-soft: #efe8e6;
+  --color-accent-accessmap: #1c7a82;       /* AccessMap — 틸/시안, vs 배경 5.05:1 (실측) */
+  --color-accent-accessmap-soft: #e6eeef;
+  --color-accent-storeledger: #4560c9;     /* 가게장부 — 인디고, vs 배경 5.57:1 (실측) */
+  --color-accent-storeledger-soft: #e6e8ef;
+
+  /* 다크 스테이트먼트 섹션 전용 — 사이트 라이트/다크 테마와 무관하게 항상 어두운
+     톤을 유지하는 편집적 장치(Problem 섹션용). --color-text/-bg처럼 다크모드에서
+     반전되지 않도록 의도적으로 @media 밖에 고정 정의 */
+  --color-statement-bg: #17171a;
+  --color-statement-text: #f5f4f0;
+  --color-statement-muted: #a3a2a0;
 
   /* Typography */
   --font-display: "Pretendard", "Noto Sans KR", -apple-system, BlinkMacSystemFont, sans-serif;
@@ -53,6 +82,13 @@
     --color-accent-soft: #1c2b23;
     --color-danger: #c56056;    /* vs #121212 4.62:1 (AA 4.5:1 이상, 실측) */
     --color-warning: #b08a2e;   /* vs #121212 5.82:1 (AA 4.5:1 이상, 실측) */
+
+    --color-accent-kongkong: #dd5931;      /* vs #121212 4.95:1 (실측) */
+    --color-accent-kongkong-soft: #2b201c;
+    --color-accent-accessmap: #249da8;     /* vs #121212 5.77:1 (실측) */
+    --color-accent-accessmap-soft: #1c2a2b;
+    --color-accent-storeledger: #7185d6;   /* vs #121212 5.38:1 (실측) */
+    --color-accent-storeledger-soft: #1c1f2b;
   }
 }
 
@@ -165,13 +201,32 @@ a { color: inherit; }
   margin: 0 0 var(--space-4);
 }
 .hero-meta {
-  display: flex;
-  gap: var(--space-4);
-  flex-wrap: wrap;
-  font-size: var(--step--1);
-  color: var(--color-text-muted);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-2);
 }
-.hero-meta strong { color: var(--color-text); display: block; font-weight: 600; }
+@media (min-width: 560px) {
+  .hero-meta { grid-template-columns: repeat(3, 1fr); }
+}
+.hero-meta-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-2) var(--space-3);
+  background: var(--color-bg-subtle);
+}
+.hero-meta-label {
+  display: block;
+  font-size: var(--step--1);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  margin-bottom: 4px;
+}
+.hero-meta-value {
+  margin: 0;
+  font-size: var(--step--1);
+  color: var(--color-text);
+}
+.hero-meta-highlight { color: var(--color-accent); font-weight: 700; }
 
 .hero-inner { display: grid; gap: var(--space-4); }
 .hero-visual { display: flex; justify-content: center; }
@@ -211,10 +266,21 @@ h3 { font-size: var(--step-2); letter-spacing: -0.01em; margin: 0 0 var(--space-
 .case-card-thumb {
   aspect-ratio: 16/9;
   background: var(--color-accent-soft);
+  color: var(--color-accent);
   display: flex;
   align-items: center;
   justify-content: center;
 }
+.case-card-thumb svg { stroke: currentColor; }
+
+/* 케이스별 액센트 프리뷰 틴트 — index.html 프로젝트 카드에서 사용 */
+.case-card--kongkong .case-card-thumb { background: var(--color-accent-kongkong-soft); color: var(--color-accent-kongkong); }
+.case-card--kongkong .case-tag { color: var(--color-accent-kongkong); }
+.case-card--accessmap .case-card-thumb { background: var(--color-accent-accessmap-soft); color: var(--color-accent-accessmap); }
+.case-card--accessmap .case-tag { color: var(--color-accent-accessmap); }
+.case-card--storeledger .case-card-thumb { background: var(--color-accent-storeledger-soft); color: var(--color-accent-storeledger); }
+.case-card--storeledger .case-tag { color: var(--color-accent-storeledger); }
+
 .case-card-body { padding: var(--space-3); }
 .case-tag {
   display: inline-block;
@@ -345,6 +411,112 @@ footer .container { display: flex; justify-content: space-between; flex-wrap: wr
 @media (min-width: 720px) {
   .case-grid { grid-template-columns: repeat(3, 1fr); }
   .two-col { grid-template-columns: 1fr 1fr; }
+}
+
+/* =========================================================
+   시각 깊이 업그레이드 컴포넌트 (2026-07, 정보위계 신호 전용 — 장식 금지)
+   ========================================================= */
+
+/* ---------- 풀블리드 섹션 전환 ---------- */
+/* 기본형: 케이스 액센트로 채우는 풀블리드 섹션. 사용처(case-*.html)에서
+   style="--section-flush-bg: var(--color-accent-kongkong-soft); --section-flush-accent: var(--color-accent-kongkong);"
+   형태로 케이스별 색을 주입한다(이 파일이 케이스명을 직접 참조하지 않는 leaf 유틸리티). */
+.section-flush {
+  background: var(--section-flush-bg, var(--color-bg-subtle));
+  color: var(--section-flush-text, var(--color-text));
+  border-top: none;
+}
+.section-flush + section,
+section + .section-flush { border-top: none; }
+.section-flush .section-label { color: var(--section-flush-accent, var(--color-accent)); }
+
+/* 다크 스테이트먼트형: Problem 섹션처럼 항상 어두운 톤(사이트 테마와 무관, --color-statement-*) */
+.section-flush--dark {
+  background: var(--color-statement-bg);
+  color: var(--color-statement-text);
+}
+.section-flush--dark .section-label { color: var(--color-statement-muted); }
+.section-flush--dark .prose p,
+.section-flush--dark .prose li { color: var(--color-statement-text); }
+
+/* ---------- 대형 스테이트먼트 타이포 ---------- */
+.statement {
+  font-size: var(--step-4);
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  max-width: 20ch;
+  margin: 0;
+}
+
+/* ---------- 주석형 솔루션 레이아웃 (목업 옆 번호매긴 문제점 + 라벨링된 근거) ---------- */
+.annotated-mockup {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-4);
+  align-items: start;
+}
+@media (min-width: 720px) {
+  .annotated-mockup { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+.annotated-mockup .pain-point {
+  display: flex;
+  gap: var(--space-2);
+  align-items: flex-start;
+  margin-bottom: var(--space-3);
+}
+.annotated-mockup .pain-point .num {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--color-danger);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--step--1);
+  font-weight: 700;
+}
+.annotated-mockup .pain-point p { margin: 0; font-size: var(--step--1); color: var(--color-text); }
+.annotated-mockup .rationale-label {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
+  padding: 3px 8px;
+  border-radius: 999px;
+  margin-bottom: 4px;
+}
+
+/* ---------- Result 배지 (숫자 강조 + 정성적 라벨 필수) ---------- */
+.result-badge {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 140px;
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg-subtle);
+}
+.result-badge .num {
+  font-size: var(--step-3);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--color-accent);
+}
+/* 주의: 반드시 "정성적 관찰" 등 정성적 문구를 이 텍스트에 명시할 것(CSS로 자동 삽입하지 않음
+   — 스크린리더 노출 신뢰성 문제로 생성 콘텐츠 대신 실제 HTML 텍스트를 요구) */
+.result-badge .qual-label {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  color: var(--color-text-muted);
 }
 
 /* =========================================================

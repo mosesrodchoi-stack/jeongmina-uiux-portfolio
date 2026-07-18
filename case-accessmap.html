@@ -8,15 +8,15 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="AccessMap — 무장애 경로 지도 | 정민아">
 <meta property="og:description" content="이동약자·여행객을 위한 다국어 무장애 경로 지도 AccessMap의 UI/UX 케이스 스터디">
-<!-- TODO: 배포 후 실제 주소로 교체 -->
-<!-- <meta property="og:url" content=""> -->
+<!-- 임시 배포 링크(GitHub Pages) — 정식 도메인 확정 시 이 줄의 content 값만 교체 -->
+<meta property="og:url" content="https://mosesrodchoi-stack.github.io/jeongmina-uiux-portfolio/case-accessmap.html">
 <meta property="og:image" content="assets/og-image.jpg">
 <meta property="og:image:type" content="image/jpeg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AccessMap — 무장애 경로 지도 | 정민아">
 <meta name="twitter:description" content="이동약자·여행객을 위한 다국어 무장애 경로 지도 AccessMap의 UI/UX 케이스 스터디">
-<!-- TODO: 배포 후 canonical URL 지정 -->
-<!-- <link rel="canonical" href=""> -->
+<!-- 임시 배포 링크(GitHub Pages) — 정식 도메인 확정 시 이 줄의 href 값만 교체 -->
+<link rel="canonical" href="https://mosesrodchoi-stack.github.io/jeongmina-uiux-portfolio/case-accessmap.html">
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="assets/style.css">
 </head>
@@ -57,10 +57,10 @@
 </header>
 
 <main id="main">
-<section>
+<section class="section-flush section-flush--dark">
   <div class="container prose">
     <div class="section-label">01 · PROBLEM</div>
-    <h2>지도는 있지만, "갈 수 있는 길"은 알려주지 않는다</h2>
+    <h2 class="statement">지도는 있지만, "갈 수 있는 길"은 알려주지 않습니다 — 경사로·단차·무장애 화장실 정보는 여전히 공백입니다.</h2>
     <p>
       기존 지도 서비스는 최단 경로는 알려주지만, 그 경로에 경사로가 있는지, 단차가 있는지,
       무장애 화장실이 어디에 있는지는 알려주지 않습니다. 이 정보 공백은 휠체어 이용자만의
@@ -94,14 +94,14 @@
 
     <h3>페르소나 (2개)</h3>
     <div class="two-col">
-      <div class="figure">
+      <div class="figure section-flush" style="--section-flush-bg: var(--color-accent-accessmap-soft);">
         <p style="margin:0"><strong>도현 (29) · 휠체어 이용 직장인</strong></p>
         <p class="persona-desc">
           출퇴근 경로는 익숙하지만, 새로운 장소를 갈 때마다 경사로 유무를 전화로 미리
           확인해야 하는 번거로움이 있음.
         </p>
       </div>
-      <div class="figure">
+      <div class="figure section-flush" style="--section-flush-bg: var(--color-accent-accessmap-soft);">
         <p style="margin:0"><strong>Sarah (45) · 노부모 동반 외국인 여행객</strong></p>
         <p class="persona-desc">
           언어 장벽으로 현지 접근성 정보를 찾기 어렵고, 아이콘만으로는 의미를 오해하는 경우가 있음.
@@ -115,6 +115,7 @@
   <div class="container">
     <div class="section-label">03 · SOLUTION</div>
     <h2>핵심 화면</h2>
+    <div class="annotated-mockup">
     <div class="mockup-row">
       <div class="phone-frame">
         <div class="screen">
@@ -164,6 +165,31 @@
         </div>
       </div>
     </div>
+
+    <div>
+      <div class="pain-point">
+        <span class="num">1</span>
+        <div>
+          <span class="rationale-label">3중 부호화</span>
+          <p>정보 구분을 색상 단독에 의존하지 않고 색상+아이콘+텍스트로 중복 표현해 색약자·저시력 사용자도 구분할 수 있도록 했습니다.</p>
+        </div>
+      </div>
+      <div class="pain-point">
+        <span class="num">2</span>
+        <div>
+          <span class="rationale-label">아이콘 단독 의존 지양</span>
+          <p>문화권마다 아이콘 해석이 다를 수 있어, 다국어 텍스트 라벨을 항상 병기했습니다.</p>
+        </div>
+      </div>
+      <div class="pain-point">
+        <span class="num">3</span>
+        <div>
+          <span class="rationale-label">제보 상태의 시각화</span>
+          <p>"검수 대기 → 반영" 상태를 보여줘, 사용자가 자신의 제보가 무시되지 않았다는 신뢰를 갖도록 설계했습니다.</p>
+        </div>
+      </div>
+    </div>
+    </div>
   </div>
 </section>
 
@@ -197,9 +223,9 @@
     <div class="section-label">05 · RESULT</div>
     <h2>결과 (정성적 + 실측 가능한 항목만 수치화)</h2>
     <div class="result-grid">
-      <div class="result-card"><span class="num">AA</span><span class="label">주요 색상 조합 대비비 WCAG AA 기준 통과 (실측 도구로 검증)</span></div>
-      <div class="result-card"><span class="num">3중 부호화</span><span class="label">색상·아이콘·텍스트 병행 표기 적용</span></div>
-      <div class="result-card"><span class="num">피드백 반영</span><span class="label">"제보 상태 표시가 이해하기 쉬웠다"는 비공식 피드백</span></div>
+      <div class="result-badge"><span class="num">AA</span><span class="qual-label">실측 검증됨 — 주요 색상 조합 대비비 WCAG AA 기준 통과 (실측 도구로 검증)</span></div>
+      <div class="result-badge"><span class="num">3중 부호화</span><span class="qual-label">정성적 관찰(실제 UT 아님) — 색상·아이콘·텍스트 병행 표기 적용</span></div>
+      <div class="result-badge"><span class="num">피드백 반영</span><span class="qual-label">정성적 관찰(실제 UT 아님) — "제보 상태 표시가 이해하기 쉬웠다"는 비공식 피드백</span></div>
     </div>
     <p class="prose" style="margin-top: var(--space-3); color:var(--color-text-muted); font-size: var(--step--1);">
       대비비(WCAG AA)는 실제 계산 도구로 검증 가능한 값이라 수치로 기재했고, 그 외 항목은

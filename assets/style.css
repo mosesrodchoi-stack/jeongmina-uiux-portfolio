@@ -16,6 +16,79 @@
    라벨 텍스트를 명시할 것 — 숫자만 크게 보이면 정량지표로 오독될 위험이 있다
    (이 포트폴리오는 개인 연습 프로젝트라 실측 정량 지표가 없음 — 가짜 지표
    오해 방지가 최우선).
+
+   2026-07 라운드7 추가 (UI키트 밀도 업그레이드, 오너 승인 — 콘텐츠는 이
+   티켓 범위 아님, worker-2가 실제 값 주입): 아이콘 뱃지·인사이트 컨버전스
+   레이아웃·순수 CSS 차트 2종·목업 프리미티브 4종 추가. 신규 색상 토큰은
+   만들지 않고 기존 AA검증 토큰(accent/kongkong/accessmap/storeledger)만
+   재사용한다. 아래는 worker-2가 케이스 페이지에 적용할 때 참고할 클래스명·
+   필수속성·예시 마크업이다.
+
+   ── .icon-badge (아이콘 뱃지) ──────────────────────────────
+   용도: 아이콘을 컬러틴트 원형/둥근사각 배경 안에 담는다.
+   변형: 기본(accent) / --kongkong / --accessmap / --storeledger (4색,
+         전부 기존 case-accent 토큰 재사용) / --square(둥근사각 모디파이어)
+   예시:
+     <span class="icon-badge icon-badge--kongkong">
+       <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor">...</svg>
+     </span>
+   ★장식용 아이콘이므로 내부 <svg>에는 반드시 aria-hidden="true"를 넣을 것
+   (아이콘 자체가 정보를 전달하지 않고 옆의 텍스트가 의미를 전달하는 경우).
+
+   ── .insight-convergence (인사이트 컨버전스) ────────────────
+   용도: 개별 페인포인트 카드 3~4개가 하단의 종합 인사이트 박스로 수렴하는
+   레이아웃. 모바일에서는 자동으로 세로 스택.
+   예시:
+     <div class="insight-convergence">
+       <div class="insight-cards">
+         <div class="insight-card">
+           <span class="icon-badge">...</span>
+           <h4>제목</h4><p>설명</p>
+         </div>
+         <!-- 2~3개 더 -->
+       </div>
+       <div class="insight-connector" aria-hidden="true"></div>
+       <div class="insight-synthesis"><p>종합 인사이트 문장</p></div>
+     </div>
+   .insight-connector는 순수 장식(점선+화살표, CSS로만 그림 — 생성 텍스트
+   없음)이므로 aria-hidden="true" 필수.
+
+   ── .chart-donut / .chart-bar (근거기반 차트, 순수 CSS/SVG — 이미지 없음) ──
+   ★★★안전장치(qual-label/estimate-label과 동일 철학): 두 차트 모두 실제
+   수치를 CSS 커스텀 프로퍼티(--chart-value)로 주입하지 않으면 도넛은
+   0%(완전히 빈 링), 막대는 0폭(완전히 빈 트랙)으로 렌더링되어 시각적으로
+   "미완성" 상태가 되도록 설계했다 — 값 누락을 눈에 띄게 만드는 안전장치.
+   단, CSS는 --chart-value(시각)와 .pct/.value 안의 리터럴 텍스트(실제
+   숫자값)가 서로 일치하는지 자동 검증할 수 없다 — 이 둘을 반드시 같은 값으로
+   worker-2가 직접 채워야 한다(예: 62%라면 style="--chart-value:62"와
+   <span class="pct">62%</span>가 둘 다 62여야 함). 숫자 자체의 출처는
+   4-A 절대지침(출처 동반)에 따라 별도로 확보할 것 — 이 컴포넌트는 표현만
+   담당한다.
+   도넛 예시:
+     <div class="chart-donut">
+       <div class="ring" style="--chart-value: 62"><span class="pct">62%</span></div>
+       <ul class="legend">
+         <li class="legend-item"><span class="legend-swatch"></span>항목A(62%)</li>
+       </ul>
+     </div>
+   막대 예시:
+     <div class="chart-bar-group">
+       <div class="chart-bar">
+         <span class="label">항목명</span>
+         <span class="track"><span class="fill" style="--chart-value: 62%"></span></span>
+         <span class="value">62%</span>
+       </div>
+     </div>
+
+   ── 신규 목업 프리미티브 4종 ─────────────────────────────────
+   .mock-toggle(토글, .is-on으로 켜짐 표현) / .mock-chip(제거가능 칩,
+   .remove는 장식 아이콘 아닌 실제 UI를 흉내낸 정적 목업이므로 별도 접근성
+   라벨 불필요 — 실제 동작하는 버튼이 아님, 스크린샷 대역임) /
+   .mock-empty-state(아이콘+안내문구, 내부 svg는 aria-hidden 필수) /
+   .mock-btn-tertiary(텍스트 버튼).
+   ★모든 mock-* 프리미티브는 실제 인터랙션이 없는 정적 화면 목업(스크린샷
+   대역)이다 — 이를 감싸는 .phone-frame/.browser-frame 등 상위 컨테이너에
+   aria-hidden="true"를 적용하는 기존 컨벤션을 그대로 따를 것.
    ========================================================= */
 
 :root {
@@ -520,6 +593,121 @@ section + .section-flush { border-top: none; }
 }
 
 /* =========================================================
+   라운드7: UI키트 밀도 업그레이드 컴포넌트 (2026-07, worker-2 재사용 대상)
+   ========================================================= */
+
+/* ---------- 아이콘 뱃지 ---------- */
+.icon-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+.icon-badge svg { width: 20px; height: 20px; stroke: currentColor; }
+.icon-badge--square { border-radius: var(--radius); }
+.icon-badge--kongkong { background: var(--color-accent-kongkong-soft); color: var(--color-accent-kongkong); }
+.icon-badge--accessmap { background: var(--color-accent-accessmap-soft); color: var(--color-accent-accessmap); }
+.icon-badge--storeledger { background: var(--color-accent-storeledger-soft); color: var(--color-accent-storeledger); }
+
+/* ---------- 인사이트 컨버전스 ---------- */
+.insight-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-3);
+}
+@media (min-width: 640px) {
+  .insight-cards { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+}
+.insight-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-bottom: 2px dashed var(--color-accent);
+  border-radius: var(--radius);
+  background: var(--color-bg-subtle);
+}
+.insight-card h4 { margin: 0; font-size: var(--step-0); }
+.insight-card p { margin: 0; font-size: var(--step--1); color: var(--color-text-muted); }
+
+.insight-connector {
+  width: 2px;
+  height: 32px;
+  margin: 0 auto;
+  position: relative;
+  background: repeating-linear-gradient(to bottom, var(--color-accent) 0 6px, transparent 6px 12px);
+}
+.insight-connector::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid var(--color-accent);
+}
+
+.insight-synthesis {
+  background: var(--color-accent-soft);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  text-align: center;
+}
+.insight-synthesis p { margin: 0; font-size: var(--step-1); font-weight: 700; color: var(--color-text); }
+
+/* ---------- 근거기반 차트 (순수 CSS/SVG — 이미지 파일 없음) ---------- */
+.chart-donut { display: inline-flex; align-items: center; gap: var(--space-3); }
+.chart-donut .ring {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* --chart-value 미지정 시 0%로 렌더링되어 완전히 빈 링(--color-border만 보임) — 의도된 안전장치 */
+  background: conic-gradient(var(--color-accent) calc(var(--chart-value, 0) * 1%), var(--color-border) 0);
+}
+.chart-donut .ring::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  background: var(--color-bg);
+}
+.chart-donut .ring .pct {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-mono);
+  font-size: var(--step-1);
+  font-weight: 800;
+}
+.chart-donut .legend { display: flex; flex-direction: column; gap: 6px; font-size: var(--step--1); margin: 0; padding: 0; list-style: none; }
+.chart-donut .legend-item { display: flex; align-items: center; gap: 6px; }
+.chart-donut .legend-swatch { width: 10px; height: 10px; border-radius: 2px; background: var(--color-accent); flex-shrink: 0; }
+
+.chart-bar-group { display: flex; flex-direction: column; gap: var(--space-2); }
+.chart-bar {
+  display: grid;
+  grid-template-columns: minmax(80px, auto) 1fr auto;
+  align-items: center;
+  gap: var(--space-2);
+}
+.chart-bar .label { font-size: var(--step--1); color: var(--color-text-muted); }
+.chart-bar .track { height: 10px; border-radius: 999px; background: var(--color-border); overflow: hidden; }
+/* --chart-value 미지정 시 0%(폭 0)로 렌더링되어 트랙만 남는다 — 의도된 안전장치 */
+.chart-bar .fill { height: 100%; width: var(--chart-value, 0%); border-radius: 999px; background: var(--color-accent); }
+.chart-bar .value { font-size: var(--step--1); font-weight: 700; font-family: var(--font-mono); text-align: right; }
+
+/* =========================================================
    코드 목업 컴포넌트 (Figma 없이 HTML/CSS로 그리는 화면 목업)
    ========================================================= */
 .mockup-row { display: flex; gap: var(--space-3); flex-wrap: wrap; justify-content: center; }
@@ -605,3 +793,78 @@ section + .section-flush { border-top: none; }
 .mock-table { width: 100%; border-collapse: collapse; font-size: var(--step--1); }
 .mock-table th, .mock-table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--color-border); }
 .mock-table th { color: var(--color-text-muted); font-weight: 600; }
+
+/* ---------- 라운드7 신규 목업 프리미티브 4종 ---------- */
+.mock-toggle {
+  --toggle-w: 40px;
+  --toggle-h: 22px;
+  display: inline-flex;
+  align-items: center;
+  width: var(--toggle-w);
+  height: var(--toggle-h);
+  border-radius: 999px;
+  background: var(--color-border);
+  padding: 2px;
+}
+.mock-toggle .knob {
+  width: calc(var(--toggle-h) - 4px);
+  height: calc(var(--toggle-h) - 4px);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.25);
+  transition: transform .15s ease;
+}
+.mock-toggle.is-on { background: var(--color-accent); }
+.mock-toggle.is-on .knob { transform: translateX(calc(var(--toggle-w) - var(--toggle-h))); }
+
+.mock-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px 4px 12px;
+  border-radius: 999px;
+  background: var(--color-bg-subtle);
+  border: 1px solid var(--color-border);
+  font-size: var(--step--1);
+  color: var(--color-text);
+}
+.mock-chip .remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-border);
+  color: var(--color-text-muted);
+  font-size: 10px;
+  line-height: 1;
+}
+
+.mock-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  text-align: center;
+  color: var(--color-text-muted);
+}
+.mock-empty-state svg { width: 32px; height: 32px; stroke: currentColor; opacity: .6; }
+.mock-empty-state p { margin: 0; font-size: var(--step--1); }
+
+.mock-btn-tertiary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: transparent;
+  color: var(--color-accent);
+  border: none;
+  padding: 8px 4px;
+  font-size: var(--step--1);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

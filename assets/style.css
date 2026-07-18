@@ -715,7 +715,9 @@ section + .section-flush { border-top: none; }
 .chart-bar .label { font-size: var(--step--1); color: var(--color-text-muted); }
 .chart-bar .track { height: 10px; border-radius: 999px; background: var(--color-border); overflow: hidden; }
 /* --chart-value 미지정 시 0%(폭 0)로 렌더링되어 트랙만 남는다 — 의도된 안전장치 */
-.chart-bar .fill { height: 100%; width: var(--chart-value, 0%); border-radius: 999px; background: var(--color-accent); }
+/* display:block 필수 — .fill은 <span>(인라인 요소)이라 이게 없으면 width/height가
+   브라우저에서 통째로 무시돼 항상 0×0으로 렌더링된다(라운드7 검증 중 master가 실측으로 발견) */
+.chart-bar .fill { display: block; height: 100%; width: var(--chart-value, 0%); border-radius: 999px; background: var(--color-accent); }
 .chart-bar .value { font-size: var(--step--1); font-weight: 700; font-family: var(--font-mono); text-align: right; }
 
 /* =========================================================
